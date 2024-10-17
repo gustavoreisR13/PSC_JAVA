@@ -1,0 +1,147 @@
+					Aula PSC Lista 5
+
+
+
+public class Cliente {
+    private String nome;
+    private String cpf;
+    private ContaCorrente conta;
+
+    public Cliente(String nome, String cpf, ContaCorrente conta) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.conta = conta;
+    }
+
+    
+    
+}
+
+
+public class ContaCorrente {
+    private int numero;
+    private int digito;
+    private Agencia agencia;
+    private double saldo;
+
+    public ContaCorrente(int numero, int digito, Agencia agencia, double saldo) {
+        if (numero <= 0 || numero > 9999) {
+            throw new IllegalArgumentException("Número da conta inválido.");
+        }
+        if (digito < 0 || digito > 9) {
+            throw new IllegalArgumentException("Dígito da conta inválido.");
+        }
+     
+    }
+
+    public double sacar(double valor) {
+        if (valor <= saldo) {
+            saldo -= valor;
+            return valor;
+        } else {
+            System.out.println("Saldo insuficiente.");
+            return 0;
+        }
+    }
+
+  
+
+    private int calcularVerificador(int numero) {
+        
+        int soma = 0;
+        int[] pesos = {2, 8, 6, 4};
+        for (int i = 0; i < 4; i++) {
+            soma += (numero % 10) * pesos[i];
+            numero /= 10;
+        }
+        int resto = soma % 11;
+        return resto == 10 ? 0 : resto;
+    }
+}
+
+
+
+						
+
+public class Agencia {
+    private String nome;
+    private int numero;
+    private int digito;
+
+      
+}
+
+
+public class CaixaEletronico {
+    public static void main(String[] args) {
+        Agencia agencia = new Agencia("Banco XYZ", 1234, 5);
+        ContaCorrente conta = new ContaCorrente(1234, 4, agencia, 150);
+        Cliente cliente = new Cliente("Ademar Apior", "123231518-12", conta);
+
+           }
+}
+
+
+
+
+public enum EstadoCondicionador {
+    LIGADO, DESLIGADO
+}
+
+
+public void setTemperatura(int temperatura) {
+    if (ligado) {
+        termostato.setTemperatura(temperatura);
+    } else {
+        System.out.println("Condicionador de ar desligado.");
+    }
+}
+
+public boolean temperaturaValida(int temperatura) {
+    return temperatura >= 15 && temperatura <= 28;
+}
+
+
+public enum EstadoCondicionador {
+    LIGADO, DESLIGADO
+}
+
+public class Termostato {
+
+}
+
+public class CondicionadorDeAr {
+    private Termostato termostato;
+    private EstadoCondicionador estado;
+
+    public CondicionadorDeAr() {
+        this.termostato = new Termostato();
+        this.estado = EstadoCondicionador.DESLIGADO;
+    }
+
+    public void setTemperatura(int temperatura) {
+        if (estado == EstadoCondicionador.LIGADO && temperaturaValida(temperatura)) {
+            termostato.setTemperatura(temperatura);
+        } else {
+            System.out.println("Condicionador de ar desligado ou temperatura inválida.");
+        }
+    }
+
+    private boolean temperaturaValida(int temperatura) {
+        return temperatura >= 15 && temperatura <= 28;
+    }
+}
+
+
+
+public class Usuario {
+    public static void main(String[] args) {
+        CondicionadorDeAr arCondicionado = new CondicionadorDeAr();
+
+        arCondicionado.ligar();
+        arCondicionado.setTemperatura(25);
+        arCondicionado.imprimirTemperatura();
+
+       arCondicionado.setTemperatura(35);
+    }
+}
